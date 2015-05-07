@@ -10,10 +10,12 @@
       <input id="toggle-all" type="checkbox">
       <label for="toggle-all">Mark all as complete</label>
       <ul id="todo-list">
-        <% Todo.all.each do |todo| %>
+        <% @todos.each do |todo| %>
           <li>
             <div class="view">
-              <input class="toggle" type="checkbox">
+              <%= form_for todo do |f| %>
+                <%= f.check_box :is_completed, class: "toggle", "data-behavior": "submit_on_check" %>
+              <% end %>
               <label><%= todo.title %></label>
               <button class="destroy"></button>
             </div>
