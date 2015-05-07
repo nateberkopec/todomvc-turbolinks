@@ -1,13 +1,26 @@
 <section id="todoapp">
   <header id="header">
     <h1>todos</h1>
-    <input id="new-todo" placeholder="What needs to be done?" autofocus>
+    <%= form_for Todo.new do |f| %>
+      <%= f.text_field :title, id: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
+    <% end %>
   </header>
   <% if Todo.any? %>
     <section id="main">
       <input id="toggle-all" type="checkbox">
       <label for="toggle-all">Mark all as complete</label>
-      <ul id="todo-list"></ul>
+      <ul id="todo-list">
+        <% Todo.all.each do |todo| %>
+          <li>
+            <div class="view">
+              <input class="toggle" type="checkbox">
+              <label><%= todo.title %></label>
+              <button class="destroy"></button>
+            </div>
+            <input class="edit" value="example">
+          </li>
+        <% end %>
+      </ul>
     </section>
     <footer id="footer">
       <span id="todo-count"></span>
