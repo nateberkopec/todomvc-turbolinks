@@ -122,7 +122,6 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
   end
 
   def enter_item(text)
-    fill_in 'new-todo', with: text
-    page.execute_script("document.getElementById('new_todo').submit()")
+    fill_in 'new-todo', with: text + "\n"
   end
 end
