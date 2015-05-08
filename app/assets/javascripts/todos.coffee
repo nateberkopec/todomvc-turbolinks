@@ -4,10 +4,3 @@
 
 $(document).on "click", "[data-behavior~=submit_on_check]", ->
   $(@).closest("form").submit()
-
-$(document).on "page:before-unload", ->
-  debugger
-  window.prevPageYOffset = window.pageYOffset
-  window.prevPageXOffset = window.pageXOffset
-$(document).on "page:load", ->
-  window.scrollTo window.prevPageXOffset, window.prevPageYOffset
