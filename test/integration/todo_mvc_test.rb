@@ -70,11 +70,23 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     find('#toggle-all').click
     assert find('#toggle-all').checked?
 
-    page.find('.edit_todo', match: :first).uncheck("todo[is_completed]")
+    todo_items[0].uncheck("todo[is_completed]")
     refute find('#toggle-all').checked?
 
-    page.find('.edit_todo', match: :first).check("todo[is_completed]")
+    todo_items[0].check("todo[is_completed]")
     assert find('#toggle-all').checked?
+  end
+
+  test "mark items as complete" do
+    create_standard_items
+
+    todo_items[0].check("todo[is_completed]")
+    assert_equal "completed", todo_items[0][:class]
+    refute_equal "completed", todo_items[1][:class]
+
+    todo_items[1].check("todo[is_completed]")
+    assert_equal "completed", todo_items[0][:class]
+    assert_equal "completed", todo_items[1][:class]
   end
 
   private
