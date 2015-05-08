@@ -49,12 +49,20 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert page.has_selector?("#footer")
   end
 
-  test "allow me to mark all items as completed" do
+  test "mark all items as completed" do
     create_standard_items
 
     find('#toggle-all').click
 
     assert todo_items.all? { |el| el[:class] == "completed" }
+  end
+
+  test "clear the completion state of all items" do
+    create_standard_items
+
+    2.times { find('#toggle-all').click }
+
+    refute todo_items.all? { |el| el[:class] == "completed" }
   end
 
   private
