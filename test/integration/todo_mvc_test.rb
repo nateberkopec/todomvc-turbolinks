@@ -89,6 +89,18 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert_equal "completed", todo_items[1][:class]
   end
 
+  test "un-mark items as complete" do
+    create_standard_items
+
+    todo_items[0].check("todo[is_completed]")
+    assert_equal "completed", todo_items[0][:class]
+    refute_equal "completed", todo_items[1][:class]
+
+    todo_items[0].uncheck("todo[is_completed]")
+    refute_equal "completed", todo_items[0][:class]
+    refute_equal "completed", todo_items[1][:class]
+  end
+
   private
 
   def assert_items(ary)
