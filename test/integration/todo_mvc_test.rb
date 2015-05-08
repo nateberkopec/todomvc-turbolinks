@@ -109,7 +109,14 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert_items [TODO_ITEM_ONE, "buy some sausages", TODO_ITEM_THREE]
   end
 
-  test "show the remove button on hover" do
+  test "should hide other controls when editing" do
+    create_standard_items
+    assert todo_items[1].has_selector?('.view label')
+
+    todo_items[1].double_click
+
+    refute todo_items[1].has_selector?('.view label')
+  end
 
   end
 
