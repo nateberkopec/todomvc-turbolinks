@@ -65,6 +65,18 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     refute todo_items.all? { |el| el[:class] == "completed" }
   end
 
+  test "complete all checkbox should update state when items are completed / cleared" do
+    create_standard_items
+    find('#toggle-all').click
+    assert find('#toggle-all').checked?
+
+    page.find('.edit_todo', match: :first).uncheck("todo[is_completed]")
+    refute find('#toggle-all').checked?
+
+    page.find('.edit_todo', match: :first).check("todo[is_completed]")
+    assert find('#toggle-all').checked?
+  end
+
   private
 
   def assert_items(ary)
