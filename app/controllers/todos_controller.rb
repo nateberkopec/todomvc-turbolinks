@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all.order(created_at: :desc)
+    @todos = Todo.all.order(created_at: :asc)
   end
 
   # POST /todos
