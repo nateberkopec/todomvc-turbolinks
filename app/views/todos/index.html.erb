@@ -5,13 +5,18 @@
       <%= f.text_field :title, id: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
     <% end %>
   </header>
-  <% if Todo.any? %>
+  <% if @todos.any? %>
     <section id="main">
-      <input id="toggle-all" type="checkbox">
-      <label for="toggle-all">Mark all as complete</label>
+      <%= form_tag update_many_todos_path, method: :put do %>
+        <% @todos.map do |todo| %>
+          <%= hidden_field_tag "ids[]", todo.id %>
+        <% end %>
+        <%= check_box_tag "todo[is_completed]", true, @todos.all?(&:is_completed), id: "toggle-all", "data-behavior": "submit_on_check" %>
+        <label for="toggle-all">Mark all as complete</label>
+      <% end %>
       <ul id="todo-list">
         <% @todos.each do |todo| %>
-          <li>
+          <li class="<%= 'completed' if todo.is_completed %>">
             <div class="view">
               <%= form_for todo do |f| %>
                 <%= f.check_box :is_completed, class: "toggle", "data-behavior": "submit_on_check" %>

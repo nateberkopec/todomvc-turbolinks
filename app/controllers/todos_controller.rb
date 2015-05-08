@@ -12,7 +12,7 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.save
-        format.html { redirect_to todos_url, notice: 'Todo was successfully created.' }
+        format.html { redirect_to todos_url }
       else
         format.html { render :index }
       end
@@ -25,7 +25,18 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     respond_to do |format|
       if @todo.update(todo_params)
-        format.html { redirect_to todos_url, notice: 'Todo was successfully updated.' }
+        format.html { redirect_to todos_url }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+
+  def update_many
+    @todos = Todo.where(id: params[:ids])
+    respond_to do |format|
+      if @todos.update(todo_params)
+        format.html { redirect_to todos_url }
       else
         format.html { render :edit }
       end
@@ -38,7 +49,7 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     @todo.destroy
     respond_to do |format|
-      format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
+      format.html { redirect_to todos_url }
     end
   end
 
