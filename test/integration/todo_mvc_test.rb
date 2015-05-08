@@ -118,6 +118,14 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     refute todo_items[1].has_selector?('.view label')
   end
 
+  test "should save edits on blur" do
+    create_standard_items
+    todo_items[1].double_click
+    todo_items[1].fill_in("todo[title]", with: "buy some sausages")
+
+    # click a button so that the blur() event is fired
+    page.find('body').double_click
+    assert_items [TODO_ITEM_ONE, "buy some sausages", TODO_ITEM_THREE]
   end
 
   private

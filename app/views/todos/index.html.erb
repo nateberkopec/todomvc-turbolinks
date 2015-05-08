@@ -26,7 +26,7 @@
               <button class="destroy"></button>
             </div>
             <%= form_for todo, html: { class: "toggle-me", style: "display: none" } do |f|%>
-              <%= f.text_field :title, class: "edit" %>
+              <%= f.text_field :title, class: "edit", "data-behavior": "submit_on_blur" %>
             <% end %>
           </li>
         <% end %>
