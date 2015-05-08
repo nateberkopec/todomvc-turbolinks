@@ -16,15 +16,18 @@
       <% end %>
       <ul id="todo-list">
         <% @todos.each do |todo| %>
-          <li class="<%= 'completed' if todo.is_completed %>">
+          <li class="<%= 'completed' if todo.is_completed %>" data-behavior="toggle_form_on_dblclick">
             <div class="view">
               <%= form_for todo do |f| %>
                 <%= f.check_box :is_completed, class: "toggle", "data-behavior": "submit_on_check" %>
               <% end %>
-              <label><%= todo.title %></label>
+              <label class="toggle-me"><%= todo.title %></label>
+
               <button class="destroy"></button>
             </div>
-            <input class="edit" value="example">
+            <%= form_for todo, html: { class: "toggle-me", style: "display: none" } do |f|%>
+              <%= f.text_field :title, class: "edit" %>
+            <% end %>
           </li>
         <% end %>
       </ul>

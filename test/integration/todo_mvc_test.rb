@@ -101,6 +101,18 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     refute_equal "completed", todo_items[1][:class]
   end
 
+  test "edit an item" do
+    create_standard_items
+    todo_items[1].double_click
+    todo_items[1].fill_in("todo[title]", with: "buy some sausages"+ "\n")
+
+    assert_items [TODO_ITEM_ONE, "buy some sausages", TODO_ITEM_THREE]
+  end
+
+  test "show the remove button on hover" do
+
+  end
+
   private
 
   def assert_items(ary)

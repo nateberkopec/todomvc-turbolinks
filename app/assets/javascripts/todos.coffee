@@ -4,3 +4,7 @@
 
 $(document).on "click", "[data-behavior~=submit_on_check]", ->
   $(@).closest("form").submit()
+
+$(document).on "dblclick", "[data-behavior~=toggle_form_on_dblclick]", ->
+  $(@).find(".toggle-me").toggle().focus()
+  $(@).toggleClass("editing")
