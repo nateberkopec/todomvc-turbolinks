@@ -35,7 +35,9 @@
       </ul>
     </section>
     <footer id="footer">
-      <span id="todo-count"></span>
+      <span id="todo-count">
+        <%= pluralize @todos.size, "item" %> left
+      </span>
       <ul id="filters">
         <li>
           <a href="#/" class="selected">All</a>
@@ -47,7 +49,8 @@
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      <button id="clear-completed">Clear completed</button>
+      <button id="clear-completed" class="<%= 'hidden' unless @todos.select { |t| t.is_completed }.size > 0 %>">
+      </button>
     </footer>
   <% end %>
 </section>

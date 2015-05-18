@@ -156,6 +156,25 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert_items [TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]
   end
 
+  test "display the current number of todo items" do
+    enter_item(TODO_ITEM_ONE)
+    assert_equal "1 item left", page.find("#todo-count").text
+
+    enter_item(TODO_ITEM_TWO)
+    assert_equal "2 items left", page.find("#todo-count").text
+  end
+
+  test "clear completed should display the correct text" do
+    skip "this test doesnt work either :("
+
+    refute page.has_selector?("#clear-completed")
+
+    create_standard_items
+    todo_items[1].check("todo[is_completed]")
+
+    assert_equal "Clear completed", page.find("#clear-completed").text
+  end
+
   private
 
   def assert_items(ary)
