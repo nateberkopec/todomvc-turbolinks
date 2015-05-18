@@ -2,6 +2,18 @@ class TodosController < ApplicationController
   # GET /todos
   def index
     @todos = Todo.all.order(created_at: :asc)
+
+    filtering_params.each do |key, value|
+      @todos = @todos.public_send(key, value) if value.present?
+    end
+  end
+
+  def active
+    @todos = Todo.active.order(created_at: :asc)
+  end
+
+  def completed
+    @todos = Todo.completed.order(created_at: :asc)
   end
 
   # POST /todos
@@ -39,4 +51,9 @@ class TodosController < ApplicationController
     def todo_params
       params.require(:todo).permit(:title, :is_completed)
     end
+
+    def filtering_params
+      params.slice(:completed)
+    end
+    helper_method :filtering_params
 end

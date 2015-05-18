@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 20150507181847) do
 
   create_table "todos", force: :cascade do |t|
     t.string   "title"
-    t.boolean  "is_completed"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.boolean  "is_completed", default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
 end

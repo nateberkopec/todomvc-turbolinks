@@ -207,6 +207,63 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert_equal "completed", todo_items[1][:class]
   end
 
+  test "display active items" do
+    create_standard_items
+    todo_items[1].check("todo[is_completed]")
+
+    page.find("#active").click
+
+    assert_items [TODO_ITEM_ONE, TODO_ITEM_THREE]
+  end
+
+  test "respect the back button" do
+    create_standard_items
+    todo_items[1].check("todo[is_completed]")
+
+    page.find("#active").click
+    page.find("#completed").click
+
+    assert_items [TODO_ITEM_TWO]
+
+    page.back
+
+    assert_items [TODO_ITEM_ONE, TODO_ITEM_THREE]
+
+    page.back
+
+    assert_items [TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]
+  end
+
+  test "display completed" do
+    create_standard_items
+    todo_items[1].check("todo[is_completed]")
+
+    assert_items [TODO_ITEM_TWO]
+  end
+
+  test "display all" do
+    create_standard_items
+    todo_items[1].check("todo[is_completed]")
+
+    page.find("#active").click
+    page.find("#completed").click
+    page.find("#all").click
+
+    assert_items [TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]
+  end
+
+  test "highlights the currently applied filter" do
+    create_standard_items
+
+    assert_equal "selected", filters[0][:class]
+
+    page.find("#active").click
+    assert_equal "selected", filters[1][:class]
+
+    page.find("#completed").click
+    assert_equal "selected", filters[2][:class]
+  end
+
   private
 
   def assert_items(ary)
@@ -219,6 +276,10 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
 
   def todo_items
     page.all("#todo-list li")
+  end
+
+  def filters
+    page.all("#filters li")
   end
 
   def create_standard_items
