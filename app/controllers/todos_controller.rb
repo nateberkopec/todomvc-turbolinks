@@ -12,9 +12,8 @@ class TodosController < ApplicationController
 
   # PATCH/PUT /todos/1
   def update
-    todo = Todo.find_by(id: params[:id])
     # cheat - sometimes the blur event handler asks to update an already destroyed record.
-    todo.try(:update, todo_params)
+    todo = Todo.find_by(id: params[:id]).try(:update, todo_params)
     redirect_to todos_url
   end
 
@@ -25,7 +24,8 @@ class TodosController < ApplicationController
 
   # DELETE /todos/1
   def destroy
-    Todo.find(params[:id]).destroy
+    # same problem as on update - sometimes we try to destroy twice in the JS
+    Todo.find_by(id: params[:id]).try(:destroy)
     redirect_to todos_url
   end
 

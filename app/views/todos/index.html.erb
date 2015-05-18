@@ -23,9 +23,11 @@
               <% end %>
               <label class="toggle-me"><%= todo.title %></label>
 
-              <button class="destroy"></button>
+              <%= form_for todo, method: "delete", html: { class: "destroy_todo" } do |f| %>
+                <%= button_tag "", class: "destroy" %>
+              <% end %>
             </div>
-            <%= form_for todo, html: { class: "toggle-me", style: "display: none" } do |f|%>
+            <%= form_for todo, html: { class: "toggle-me todo-title", style: "display: none", "data-behavior": "intercept_destroy" } do |f|%>
               <%= f.text_field :title, class: "edit", "data-behavior": "submit_on_blur" %>
             <% end %>
           </li>

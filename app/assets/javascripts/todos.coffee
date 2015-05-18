@@ -9,5 +9,12 @@ $(document).on "blur", "[data-behavior~=submit_on_blur]", ->
   $(@).closest("form").submit()
 
 $(document).on "dblclick", "[data-behavior~=toggle_form_on_dblclick]", ->
-  $(@).find(".toggle-me").toggle().focus()
-  $(@).toggleClass("editing")
+  $(@).addClass("editing")
+  $(@).find(".toggle-me").show ->
+    $(@).find(".edit").focus()
+
+$(document).on "submit", "[data-behavior~=intercept_destroy]", (event) ->
+  if $(@).find("#todo_title").val() == ""
+    event.preventDefault()
+    debugger
+    $(@).parent().find(".destroy_todo").submit();
