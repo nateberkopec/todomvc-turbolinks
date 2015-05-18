@@ -49,8 +49,14 @@
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      <button id="clear-completed" class="<%= 'hidden' unless @todos.select { |t| t.is_completed }.size > 0 %>">
-      </button>
+      <% if @todos.select { |t| t.is_completed }.size > 0 %>
+        <%= form_tag destroy_many_todos_path, method: :delete do %>
+          <% @todos.select { |t| t.is_completed }.map do |todo| %>
+            <%= hidden_field_tag "ids[]", todo.id %>
+          <% end %>
+          <%= button_tag "Clear completed", id: "clear-completed" %>
+        <% end %>
+      <% end %>
     </footer>
   <% end %>
 </section>

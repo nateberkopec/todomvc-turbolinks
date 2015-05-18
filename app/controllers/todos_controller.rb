@@ -29,6 +29,11 @@ class TodosController < ApplicationController
     redirect_to todos_url
   end
 
+  def destroy_many
+    Todo.where(id: params[:ids]).try(:destroy_all)
+    redirect_to todos_url
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_params
