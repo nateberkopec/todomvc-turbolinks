@@ -5,7 +5,7 @@
 $(document).on "click", "[data-behavior~=submit_on_check]", ->
   $(@).closest("form").submit()
 
-$(document).on "blur", "[data-behavior~=submit_on_blur]", ->
+$(document).on "blur", ".editing [data-behavior~=submit_on_blur]", ->
   $(@).closest("form").submit()
 
 $(document).on "dblclick", "[data-behavior~=toggle_form_on_dblclick]", ->
@@ -18,3 +18,8 @@ $(document).on "submit", "[data-behavior~=intercept_destroy]", (event) ->
     event.preventDefault()
     debugger
     $(@).parent().find(".destroy_todo").submit();
+
+$(document).on "keydown", "[data-behavior~=close_on_esc]", (event) ->
+  if event.keyCode == 27
+    $(@).parents("li").removeClass("editing")
+    $(@).parents(".toggle-me").hide

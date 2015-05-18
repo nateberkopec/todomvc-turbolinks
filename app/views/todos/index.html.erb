@@ -28,7 +28,7 @@
               <% end %>
             </div>
             <%= form_for todo, html: { class: "toggle-me todo-title", style: "display: none", "data-behavior": "intercept_destroy" } do |f|%>
-              <%= f.text_field :title, class: "edit", "data-behavior": "submit_on_blur" %>
+              <%= f.text_field :title, class: "edit", "data-behavior": "submit_on_blur close_on_esc" %>
             <% end %>
           </li>
         <% end %>

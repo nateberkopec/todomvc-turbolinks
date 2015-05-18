@@ -145,6 +145,17 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert_items [TODO_ITEM_ONE, TODO_ITEM_THREE]
   end
 
+  test "should cancel edits on escape" do
+    create_standard_items
+
+    todo_items[1].double_click
+
+    todo_items[1].fill_in("todo[title]", with: "foo")
+    todo_items[1].find("#todo_title").native.send_key(:escape)
+
+    assert_items [TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]
+  end
+
   private
 
   def assert_items(ary)
