@@ -128,6 +128,23 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert_items [TODO_ITEM_ONE, "buy some sausages", TODO_ITEM_THREE]
   end
 
+  test "trim entered text" do
+    create_standard_items
+    todo_items[1].double_click
+    todo_items[1].fill_in("todo[title]", with: "   buy some sausages    " + "\n")
+
+    assert_items [TODO_ITEM_ONE, "buy some sausages", TODO_ITEM_THREE]
+  end
+
+  test "remove todos if empty text is entered when editing" do
+    create_standard_items
+
+    todo_items[1].double_click
+    todo_items[1].fill_in("todo[title]", with: "" + "\n")
+
+    assert_items [TODO_ITEM_ONE, TODO_ITEM_THREE]
+  end
+
   private
 
   def assert_items(ary)
