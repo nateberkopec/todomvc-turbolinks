@@ -27,3 +27,5 @@ $(document).on "submit", "[data-behavior~=intercept_destroy]", (event) ->
     $(@).parent().find(".destroy_todo").submit();
 
 
+$(document).on "page:change", ->
+  $("#new-todo").focus();
