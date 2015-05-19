@@ -12,6 +12,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem "jquery-rails"
 gem 'turbolinks', github: 'rails/turbolinks'
 gem 'rails_12factor'
+gem 'thin'
 
 group :development, :test do
   gem 'spring'
