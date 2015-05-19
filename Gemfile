@@ -16,6 +16,8 @@ gem 'puma'
 
 group :development, :test do
   gem 'spring'
+  gem 'rack-mini-profiler'
+  gem 'flamegraph'
 end
 
 group :test do
