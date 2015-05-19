@@ -8,14 +8,6 @@ class TodosController < ApplicationController
     end
   end
 
-  def active
-    @todos = Todo.active.order(created_at: :asc)
-  end
-
-  def completed
-    @todos = Todo.completed.order(created_at: :asc)
-  end
-
   # POST /todos
   def create
     Todo.create(todo_params)
