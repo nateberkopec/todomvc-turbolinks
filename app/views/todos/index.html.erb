@@ -14,23 +14,7 @@
       <label for="toggle-all">Mark all as complete</label>
     <% end %>
     <ul id="todos">
-      <% @todos.each do |todo| %>
-        <li id="todos:<%= todo.id %>" class="<%= 'completed' if todo.is_completed %>" data-behavior="toggle_form_on_dblclick">
-          <div class="view">
-            <%= form_for todo, remote: true do |f| %>
-              <%= f.check_box :is_completed, class: "toggle", "data-behavior": "submit_on_check" %>
-            <% end %>
-            <label class="toggle-me"><%= todo.title %></label>
-
-            <%= form_for todo, remote: true, method: "delete", html: { class: "destroy_todo" } do |f| %>
-              <%= button_tag "", class: "destroy" %>
-            <% end %>
-          </div>
-          <%= form_for todo, remote: true, html: { class: "toggle-me todo-title", style: "display: none", "data-behavior": "intercept_destroy" } do |f|%>
-            <%= f.text_field :title, class: "edit", "data-behavior": "submit_on_blur close_on_esc" %>
-          <% end %>
-        </li>
-      <% end %>
+      <%= render @todos %>
     </ul>
   </section>
   <footer id="footer" data-turbolinks-temporary class="<%= "hidden" unless @todos.any? || filtering_params.any? %>">
@@ -58,8 +42,3 @@
     <% end %>
   </footer>
 </section>
-<footer id="info" data-turbolinks-permanent>
-  <p>Double-click to edit a todo</p>
-  <p>Created by <a href="http://twitter.com/nateberkopec">Nate Berkopec</a></p>
-  <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-</footer>
