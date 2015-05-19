@@ -14,3 +14,7 @@
  *= require_self
  *= require todomvc
  */
+
+html.turbolinks-progress-bar::before {
+  display: none !important;
+}
