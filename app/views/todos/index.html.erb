@@ -2,7 +2,7 @@
   <header id="header" data-turbolinks-permanent>
     <h1>todos</h1>
     <%= form_for Todo.new, remote: true do |f| %>
-      <%= f.text_field :title, id: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
+      <%= f.text_field :title, id: "new-todo", placeholder: "What needs to be done?", autofocus: true, autocomplete: "off" %>
     <% end %>
   </header>
   <section id="main" class="<%= "hidden" unless @todos.any? || filtering_params.any? %>">
