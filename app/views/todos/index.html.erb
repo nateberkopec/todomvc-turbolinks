@@ -1,12 +1,12 @@
-<section id="todoapp">
-  <header id="header" data-turbolinks-permanent>
+<section id="todoapp" data-turbolinks-temporary>
+  <header id="header">
     <h1>todos</h1>
     <%= form_for Todo.new, remote: true do |f| %>
       <%= f.text_field :title, id: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
     <% end %>
   </header>
   <section id="main" class="<%= "hidden" unless @todos.any? || filtering_params.any? %>">
-    <%= form_tag update_many_todos_path, method: :put, remote: true, html: { 'data-turbolinks-temporary': true } do %>
+    <%= form_tag update_many_todos_path, method: :put, remote: true do %>
       <% @todos.map do |todo| %>
         <%= hidden_field_tag "ids[]", todo.id %>
       <% end %>
@@ -33,7 +33,7 @@
       <% end %>
     </ul>
   </section>
-  <footer id="footer" class="<%= "hidden" unless @todos.any? || filtering_params.any? %>" data-turbolinks-temporary>
+  <footer id="footer" class="<%= "hidden" unless @todos.any? || filtering_params.any? %>">
     <span id="todo-count">
       <%= pluralize @todos.reject(&:is_completed).size, "item" %> left
     </span>
@@ -58,7 +58,7 @@
     <% end %>
   </footer>
 </section>
-<footer id="info">
+<footer id="info" data-turbolinks-permanent>
   <p>Double-click to edit a todo</p>
   <p>Created by <a href="http://twitter.com/nateberkopec">Nate Berkopec</a></p>
   <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
