@@ -1,7 +1,7 @@
 class TodosController < ApplicationController
   # GET /todos
   def index
-    @todos = Todo.all.order(created_at: :asc)
+    @todos = Todo.belonging_to(session_user).order(created_at: :asc)
 
     filtering_params.each do |key, value|
       @todos = @todos.public_send(key, value) if value.present?
@@ -10,7 +10,7 @@ class TodosController < ApplicationController
 
   # POST /todos
   def create
-    Todo.create(todo_params)
+    Todo.belonging_to(session_user).create(todo_params)
 
     redirect_to todos_url, change: "todos"
   end
@@ -18,24 +18,24 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   def update
     # cheat - sometimes the blur event handler asks to update an already destroyed record.
-    todo = Todo.find_by(id: params[:id]).try(:update, todo_params)
+    todo = Todo.belonging_to(session_user).find_by(id: params[:id]).try(:update, todo_params)
     redirect_to todos_url, change: "todos"
   end
 
   def update_many
-    Todo.where(id: params[:ids]).update(todo_params)
+    Todo.belonging_to(session_user).where(id: params[:ids]).update(todo_params)
     redirect_to todos_url, change: "todos"
   end
 
   # DELETE /todos/1
   def destroy
     # same problem as on update - sometimes we try to destroy twice in the JS
-    Todo.find_by(id: params[:id]).try(:destroy)
+    Todo.belonging_to(session_user).find_by(id: params[:id]).try(:destroy)
     redirect_to todos_url, change: "todos"
   end
 
   def destroy_many
-    Todo.where(id: params[:ids]).try(:destroy_all)
+    Todo.belonging_to(session_user).where(id: params[:ids]).try(:destroy_all)
     redirect_to todos_url, change: "todos"
   end
 
