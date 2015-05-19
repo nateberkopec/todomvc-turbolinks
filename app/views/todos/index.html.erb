@@ -39,13 +39,13 @@
     </span>
     <ul id="filters">
       <li>
-        <a id="all" href="/" <%= "class=selected" if request.fullpath == '/' || request.fullpath == "/todos" %>>All</a>
+        <a id="all" href="/" class="<%= "selected" if request.fullpath == '/' || request.fullpath == "/todos" %>">All</a>
       </li>
       <li>
-        <a id="active" href="/?completed=false" <%= "class=selected" if request.fullpath.match("completed=false") %>>Active</a>
+        <a id="active" href="/?completed=false" class="<%= "selected" if request.fullpath.match("completed=false") %>">Active</a>
       </li>
       <li>
-        <a id="completed" href="/?completed=true" <%= "class=selected" if request.fullpath.match("completed=true") %>>Completed</a>
+        <a id="completed" href="/?completed=true" class="<%= "selected" if request.fullpath.match("completed=true") %>">Completed</a>
       </li>
     </ul>
     <% if @todos.select { |t| t.is_completed }.size > 0 %>

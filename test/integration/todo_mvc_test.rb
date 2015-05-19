@@ -225,11 +225,11 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
 
     assert_items [TODO_ITEM_TWO]
 
-    page.back
+    page.evaluate_script('window.history.back()')
 
     assert_items [TODO_ITEM_ONE, TODO_ITEM_THREE]
 
-    page.back
+    page.evaluate_script('window.history.back()')
 
     assert_items [TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]
   end
@@ -237,6 +237,8 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
   test "display completed" do
     create_standard_items
     todo_items[1].check("todo[is_completed]")
+
+    page.find("#completed").click
 
     assert_items [TODO_ITEM_TWO]
   end
@@ -275,11 +277,11 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
   TODO_ITEM_THREE = 'book a doctors appointment'
 
   def todo_items
-    page.all("#todo-list li")
+    page.all("#todos li")
   end
 
   def filters
-    page.all("#filters li")
+    page.all("#filters li a")
   end
 
   def create_standard_items
