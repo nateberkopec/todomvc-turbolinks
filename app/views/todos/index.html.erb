@@ -5,8 +5,8 @@
       <%= f.text_field :title, id: "new-todo", placeholder: "What needs to be done?", autofocus: true %>
     <% end %>
   </header>
-  <section id="main" data-turbolinks-temporary class="<%= "hidden" unless @todos.any? || filtering_params.any? %>">
-    <%= form_tag update_many_todos_path, method: :put, remote: true do %>
+  <section id="main" class="<%= "hidden" unless @todos.any? || filtering_params.any? %>">
+    <%= form_tag update_many_todos_path, method: :put, remote: true, "data-turbolinks-temporary" => true, id: "update_many_todos" do %>
       <% @todos.map do |todo| %>
         <%= hidden_field_tag "ids[]", todo.id %>
       <% end %>
