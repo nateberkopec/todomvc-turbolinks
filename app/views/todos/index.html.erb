@@ -6,7 +6,7 @@
     <% end %>
   </header>
   <section id="main" class="<%= "hidden" unless @todos.any? || filtering_params.any? %>">
-    <%= form_tag update_many_todos_path, method: :put, remote: true do %>
+    <%= form_tag update_many_todos_path, method: :put, remote: true, html: { 'data-turbolinks-temporary': true } do %>
       <% @todos.map do |todo| %>
         <%= hidden_field_tag "ids[]", todo.id %>
       <% end %>
