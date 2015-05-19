@@ -12,34 +12,31 @@ class TodosController < ApplicationController
   def create
     Todo.create(todo_params)
 
-    respond_to do |format|
-      format.html { redirect_to todos_url }
-      format.js { redirect_to todos_url }
-    end
+    redirect_to todos_url, change: "todos"
   end
 
   # PATCH/PUT /todos/1
   def update
     # cheat - sometimes the blur event handler asks to update an already destroyed record.
     todo = Todo.find_by(id: params[:id]).try(:update, todo_params)
-    redirect_to todos_url
+    redirect_to todos_url, change: "todos"
   end
 
   def update_many
     Todo.where(id: params[:ids]).update(todo_params)
-    redirect_to todos_url
+    redirect_to todos_url, change: "todos"
   end
 
   # DELETE /todos/1
   def destroy
     # same problem as on update - sometimes we try to destroy twice in the JS
     Todo.find_by(id: params[:id]).try(:destroy)
-    redirect_to todos_url
+    redirect_to todos_url, change: "todos"
   end
 
   def destroy_many
     Todo.where(id: params[:ids]).try(:destroy_all)
-    redirect_to todos_url
+    redirect_to todos_url, change: "todos"
   end
 
   private
