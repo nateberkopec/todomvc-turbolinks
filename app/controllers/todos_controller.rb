@@ -11,7 +11,11 @@ class TodosController < ApplicationController
   # POST /todos
   def create
     Todo.create(todo_params)
-    redirect_to todos_url
+
+    respond_to do |format|
+      format.html { redirect_to todos_url }
+      format.js { redirect_to todos_url }
+    end
   end
 
   # PATCH/PUT /todos/1
