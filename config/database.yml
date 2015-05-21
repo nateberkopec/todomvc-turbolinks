@@ -14,4 +14,3 @@ test:
 production:
   <<: *default
   database: todomvc_production
-  username: todomvc
