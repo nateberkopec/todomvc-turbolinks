@@ -1,13 +1,13 @@
 <section id="todoapp">
   <header id="header" data-turbolinks-permanent>
     <h1>todos</h1>
-    <%= form_for Todo.new, remote: true do |f| %>
+    <%= form_for Todo.new, remote: true, authenticity_token: true do |f| %>
       <%= f.text_field :title, id: "new-todo", placeholder: "What needs to be done?", autofocus: true, autocomplete: "off" %>
     <% end %>
   </header>
   <% @todos.load %>
   <section id="main">
-    <%= form_tag update_many_todos_path, method: :put, remote: true, "data-turbolinks-temporary" => true, id: "update_many_todos" do %>
+    <%= form_tag update_many_todos_path, method: :put, remote: true, "data-turbolinks-temporary" => true, id: "update_many_todos", authenticity_token: true do %>
       <% @todos.map do |todo| %>
         <%= hidden_field_tag "ids[]", todo.id %>
       <% end %>
@@ -18,13 +18,13 @@
       <% @todos.each do |todo| %>
         <li id="todos:<%= todo.id %>" class="<%= 'completed' if todo.is_completed %>" data-behavior="toggle_form_on_dblclick">
           <div class="view">
-            <%= form_for todo, remote: true do |f| %>
+            <%= form_for todo, remote: true, authenticity_token: true do |f| %>
               <%= f.check_box :is_completed, class: "toggle", "data-behavior": "submit_on_check" %>
             <% end %>
 
             <label class="toggle-me"><%= todo.title %></label>
 
-            <%= form_for todo, remote: true, method: "delete", html: { class: "destroy_todo" } do |f| %>
+            <%= form_for todo, remote: true, authenticity_token: true, method: "delete", html: { class: "destroy_todo" } do |f| %>
               <%= button_tag "", class: "destroy" %>
             <% end %>
           </div>
@@ -51,7 +51,7 @@
       </li>
     </ul>
     <% if @todos.select { |t| t.is_completed }.size > 0 %>
-      <%= form_tag destroy_many_todos_path, remote: true, method: :delete do %>
+      <%= form_tag destroy_many_todos_path, remote: true, authenticity_token: true, method: :delete do %>
         <% @todos.select { |t| t.is_completed }.map do |todo| %>
           <%= hidden_field_tag "ids[]", todo.id %>
         <% end %>

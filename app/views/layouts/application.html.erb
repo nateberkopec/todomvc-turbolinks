@@ -4,9 +4,11 @@
   <% cache('head') do %>
     <title>Turbolinks 3 • TodoMVC</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
+    <%= javascript_include_tag 'application', async: 'true', 'data-turbolinks-track' => true %>
     <meta name=viewport content="width=device-width, initial-scale=1">
   <% end %>
+
+  <%= csrf_meta_tags %>
 </head>
 <body>
 
@@ -19,8 +21,6 @@
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
   </footer>
 <% end %>
-
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
 </body>
 </html>
