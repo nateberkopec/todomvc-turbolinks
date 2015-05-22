@@ -13,12 +13,13 @@ gem "jquery-rails"
 gem 'turbolinks', github: 'rails/turbolinks'
 gem 'rails_12factor'
 gem 'puma'
+gem 'rack-zippy'
 
 group :development, :test do
   gem 'spring'
-  gem 'stackprof'
-  gem 'rack-mini-profiler'
-  gem 'flamegraph'
+  #gem 'stackprof'
+  #gem 'rack-mini-profiler'
+  #gem 'flamegraph'
 end
 
 group :test do

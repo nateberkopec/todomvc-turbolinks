@@ -22,5 +22,8 @@ module Todomvc
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # http://guides.rubyonrails.org/caching_with_rails.html
+    config.cache_store = :memory_store
   end
 end
