@@ -12,7 +12,7 @@ $(document).on "blur", ".editing [data-behavior~=submit_on_blur]", ->
 # Thankfully, it's view state, not the actual state of our models
 $(document).on "dblclick", "[data-behavior~=toggle_form_on_dblclick]", ->
   $(@).addClass("editing")
-  $(@).find(".toggle-me").show() ->
+  $(@).find(".toggle-me").show 0, ->
     $(@).find(".edit").focus()
 
 # Note that this is one of two places where "state" is kept in the DOM.
