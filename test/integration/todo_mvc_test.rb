@@ -128,6 +128,13 @@ class TodoMvcTest < ActionDispatch::IntegrationTest
     assert_items [TODO_ITEM_ONE, "buy some sausages", TODO_ITEM_THREE]
   end
 
+  test "focuses an item on double click" do
+    create_standard_items
+    todo_items[1].double_click
+
+    assert_equal "todo_title", page.evaluate_script('document.activeElement.id')
+  end
+
   test "trim entered text" do
     create_standard_items
     todo_items[1].double_click
