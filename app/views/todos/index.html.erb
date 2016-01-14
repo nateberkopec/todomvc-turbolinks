@@ -11,7 +11,7 @@
       <% @todos.map do |todo| %>
         <%= hidden_field_tag "ids[]", todo.id %>
       <% end %>
-      <%= check_box :todo, :is_completed, checked: @todos.all?(&:is_completed), id: "toggle-all", "data-behavior": "submit_on_check" %>
+      <%= check_box :todo, :is_completed, checked: @todos.any? && @todos.all?(&:is_completed), id: "toggle-all", "data-behavior": "submit_on_check" %>
       <label for="toggle-all">Mark all as complete</label>
     <% end %>
     <ul id="todos">

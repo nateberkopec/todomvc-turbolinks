@@ -4,7 +4,7 @@
   <% cache('head') do %>
     <title>Turbolinks 3 • TodoMVC</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', async: 'true', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <meta name=viewport content="width=device-width, initial-scale=1">
   <% end %>
 

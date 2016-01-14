@@ -13,12 +13,12 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   def update
     # cheat - sometimes the blur event handler asks to update an already destroyed record.
-    Todo.belonging_to(session_user).where(id: params[:id]).update_all(todo_params)
+    Todo.belonging_to(session_user).where(id: params[:id]).update_all(todo_params.to_h)
     load_and_render_index
   end
 
   def update_many
-    Todo.belonging_to(session_user).where(id: params[:ids]).update_all(todo_params)
+    Todo.belonging_to(session_user).where(id: params[:ids]).update_all(todo_params.to_h)
     load_and_render_index
   end
 
@@ -41,7 +41,7 @@ class TodosController < ApplicationController
     end
 
     def filtering_params
-      params.slice(:completed)
+      params.slice(:completed).to_unsafe_h
     end
     helper_method :filtering_params
 
