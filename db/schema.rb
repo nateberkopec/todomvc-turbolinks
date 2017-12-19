@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -16,12 +15,12 @@ ActiveRecord::Schema.define(version: 20150519181601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "todos", force: :cascade do |t|
-    t.string   "title"
-    t.boolean  "is_completed",    default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "session_user_id"
+  create_table "todos", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.boolean "is_completed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "session_user_id"
   end
 
 end
