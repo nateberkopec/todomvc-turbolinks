@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', github: "rails/rails"
+gem 'tzinfo-data'
 
 gem 'pg'
 gem 'sass-rails'
