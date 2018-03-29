@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', github: "rails/rails"
+gem 'rails'
 
 gem 'pg'
 gem 'sass-rails'
